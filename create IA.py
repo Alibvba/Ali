@@ -1,25 +1,18 @@
-import tensorflow as tf
-from tensorflow.keras import datasets, layers, models
+import numpy as np
+import matplotlib.pyplot as plt
 
-# Charger les données MNIST
-(x_train, y_train), (x_test, y_test) = datasets.mnist.load_data()
-x_train, x_test = x_train / 255.0, x_test / 255.0
+# Définir les valeurs de x
+x = np.linspace(0, 2, 100)
 
-# Créer un modèle simple
-model = models.Sequential([
-    layers.Flatten(input_shape=(28, 28)),
-    layers.Dense(128, activation='relu'),
-    layers.Dense(10, activation='softmax')
-])
+# Calculer les valeurs de e^x
+y = np.exp(x)  # exp(x) = e^x
 
-# Compiler le modèle
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
+# Tracer la courbe
+plt.plot(x, y)
+plt.title("Courbe exponentielle e^x")
+plt.xlabel("x")
+plt.ylabel("e^x")
+plt.grid(True)
 
-# Entraîner le modèle sur un GPU
-model.fit(x_train, y_train, epochs=5)
-
-# Évaluer le modèle
-test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
-print(f"Précision sur les données de test : {test_acc}")
+# Montrer le graphique
+plt.show()
